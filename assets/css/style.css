@@ -1,0 +1,32 @@
+body
+{
+  background-image: url('../images/background.jpeg');
+}
+
+.col-md-8
+{
+  background-color: transparent;
+  color: black;
+  margin-left: 15%;
+  margin-right: 15%;
+  text-align: center;
+}
+
+.padcol
+{
+  background-color: transparent;
+  color: black;
+}
+
+.form-control
+{
+  width: 33%;
+  margin-left: 33%;
+  margin-bottom: 24px;
+}
+
+img
+{
+  border-color: transparent;
+  border-width: 3px;
+}
