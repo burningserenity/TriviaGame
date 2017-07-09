@@ -2,8 +2,8 @@
 
 var player =
 {
-   name: 'Sir Lancelot',
-   favColor: 'blue'
+   name: '',
+   favColor: ''
 }
 
 //Question object array
@@ -18,7 +18,14 @@ var gameQuestions =
     a3: "11 meters per second, or 24 miles per hour, beating its wings 2-4 times per second.",
     a4: "African or European?",
     correct1: "11 meters per second, or 24 miles per hour, beating its wings 7-9 times per second.",
-    correct2: "African or European?"
+    correct2: "African or European?",
+    image: $("<img>").attr(
+    {
+      src: "assets/images/swallow.jpeg",
+      alt: "Unladen Swallow",
+      width: "300",
+      height: "300"
+    })
   },
 
   knightsOfNi =
@@ -28,7 +35,14 @@ var gameQuestions =
     a2: "Okki Okki Okki Okki Ptang Quiong!",
     a3: "It!",
     a4: "Ekke Ekke Ekke Ekke Garang Moyun!",
-    correct: "Ekke Ekke Ekke Ekke Ptang Zoo Boing!"
+    correct: "Ekke Ekke Ekke Ekke Ptang Zoo Boing!",
+    image: $("<img>").attr(
+    {
+      src: "assets/images/knightsofni.jpeg",
+      alt: "The Knights who Say Ni",
+      width: "300",
+      height: "300"
+    })
   },
 
   grenade =
@@ -38,7 +52,14 @@ var gameQuestions =
     a2: "Three",
     a3: "Four",
     a4: "Tis a trick question: thou must throweth the Holy Hand Grenade of Antioch not an instant hence thou pulleth out the Holy Pin",
-    correct: "Three"
+    correct: "Three",
+    image: $("<img>").attr(
+    {
+      src: "assets/images/holyhandgrenade.jpeg",
+      alt: "The Holy Hand Grenade of Antioch",
+      width: "300",
+      height: "300"
+    })
   },
 
   grailLocation =
@@ -48,7 +69,14 @@ var gameQuestions =
     a2: "With the French",
     a3: "Castle Black",
     a4: "Castle Arrrghhh",
-    correct: "Castle Arrrghhh"
+    correct: "Castle Arrrghhh",
+    image: $("<img>").attr(
+    {
+      src: "assets/images/grail.jpeg",
+      alt: "The Holy Grail",
+      width: "300",
+      height: "300"
+    })
   },
 
   roundTableNames =
@@ -58,7 +86,14 @@ var gameQuestions =
     a2: "King Arthur, Sir Lancelot, Sir Extra, Sir Monk, Sir Maynard, Sir Robin",
     a3: "King Arthur, Sir Winston, Sir Gallahad, Sir Extra, Sir Brian",
     a4: "King Arthur, Sir Lancelot, Sir Gallahad, Sir Extra, Sir Robin, Sir Bevedere",
-    correct: "King Arthur, Sir Lancelot, Sir Gallahad, Sir Not-Appearing-in-this-Film, Sir Robin, Sir Bedevere"
+    correct: "King Arthur, Sir Lancelot, Sir Gallahad, Sir Not-Appearing-in-this-Film, Sir Robin, Sir Bedevere",
+    image: $("<img>").attr(
+    {
+      src: "assets/images/knightsoftheroundtable.jpeg",
+      alt: "The Knights of the Round Table",
+      width: "300",
+      height: "300"
+    })
   },
 
   frenchMother =
@@ -68,17 +103,31 @@ var gameQuestions =
     a2: "Hamster",
     a3: "Herring",
     a4: "Gerbil",
-    correct: "Hamster"
+    correct: "Hamster",
+    image: $("<img>").attr(
+    {
+      src: "assets/images/frenchman.jpeg",
+      alt: "Frenchman",
+      width: "300",
+      height: "300"
+    })
   },
 
   frenchFather =
   {
-    q: "Also according to the French, King Arthur's father ______",
+    q: "According to the French, King Arthur's father ______",
     a1: "Smelled of elderberries",
-    a2: "Smelled of fish guts",
+    a2: "Licked lobsters",
     a3: "Was the village idiot",
     a4: "Was a blacksmith",
-    correct: "Smelled of elderberries"
+    correct: "Smelled of elderberries",
+    image: $("<img>").attr(
+    {
+      src: "assets/images/frenchmen.jpeg",
+      alt: "Frenchmen",
+      width: "300",
+      height: "300"
+    })
   },
 
   rockAlbum =
@@ -88,7 +137,14 @@ var gameQuestions =
     a2: "Black Sabbath's Masters of Reality",
     a3: "Jethro Tull's Aqualung",
     a4: "The Damned's Machine Gun Etiquette",
-    correct: "Pink Floyd's Darkside of the Moon"
+    correct: "Pink Floyd's Darkside of the Moon",
+    image: $("<img>").attr(
+    {
+      src: "assets/images/guitar.jpeg",
+      alt: "Guitar",
+      width: "300",
+      height: "300"
+    })
   },
 
   godPicture =
@@ -98,7 +154,14 @@ var gameQuestions =
     a2: "William Shakespeare",
     a3: "19th Century English footballer Joseph Bannerly",
     a4: "Proto-Medieval philosopher St. Augustine",
-    correct: "19th Century English cricketer W.G Grace"
+    correct: "19th Century English cricketer W.G Grace",
+    image: $("<img>").attr(
+    {
+      src: "assets/images/God.jpeg",
+      alt: "God",
+      width: "300",
+      height: "300"
+    })
   },
 
   witchesBurn =
@@ -108,8 +171,15 @@ var gameQuestions =
     a2: "They sweat kerosene",
     a3: "They're made of wood",
     a4: "Magic is a fire accelerant",
-    correct: "They're made of wood"
-  }
+    correct: "They're made of wood",
+    image: $("<img>").attr(
+    {
+      src: "assets/images/witch.jpeg",
+      alt: "Witch",
+      width: "300",
+      height: "300"
+    })
+  },
 ];
 
 var imgBorderColor;
@@ -141,9 +211,9 @@ $(function()
         $("<img>").attr(
         {
           alt: "The Bridge Guard",
-          src: "assets/images/bridgeGuard.gif",
-          width: "200",
-          height: "200",
+          src: "assets/images/bridgeGuard.jpeg",
+          width: "300",
+          height: "300",
           id: "imgIcon"
         }).appendTo("#heading");
       $("<div>").attr(
@@ -243,16 +313,21 @@ $(function()
       });
     }
 
+    else if ($(".question").text() === "From here on out, the questions will be timed, multiple choice.")
+    {
+      realQuestions();
+    }
+
     else if  ($(".form-control").attr('name', "favourite_color"))
     {
       //Does not work
-      if ($(".form-control").prop('value').length > 0)
+      if ($(".form-control").length > 0 && $(".form-control").prop('value').length > 0)
       {
         player.favColor = $(".form-control").prop('value');
-        imgBorderColor = player.favColor;
-        $("#imgIcon").css(
+        imgBorderColor = player.favColor.toLowerCase();
+        $("img").css(
         {
-          'border-color': imgBorderColor,
+          'border-color': imgBorderColor
         });
         $(".question").text("From here on out, the questions will be timed, multiple choice.");
         $(".form-control").detach();
@@ -260,12 +335,69 @@ $(function()
       }
     }
 
-    else if ($(".btn-primary").attr("value", "Go!"))
-      realQuestions();
+
+    //Once Pre-Questions are done, start the real game
+
   });
+  function realQuestions()
+  {
+
+      var question = gameQuestions[Math.floor(Math.random() * gameQuestions.length)];
+      $(".question").text(question.q);
+      gameQuestions = gameQuestions.splice(question, 1);
+      var answerArray = [question.a1, question.a2, question.a3, question.a4];
+      question.image.css(
+      {
+        'border-color': imgBorderColor
+      });
+      $("<form>").attr(
+      {
+        class: "form-group"
+      }).appendTo("#answer-col");
+
+        $("<div>").attr(
+        {
+          class: "jumbotron"
+        }).appendTo(".form-group");
+
+        for (i = 0; i < 4; i++)
+          $("<div>").attr(
+          {
+            class: "row anssubrow",
+            id: "anssub" + i
+          }).appendTo(".jumbotron");
+
+        for (i = 0; i < 4; i++)
+        {
+           $("<div>").attr(
+           {
+             class: "col-md-2 col-sm-2 col-xs-2",
+             id: "butcol" + i
+           }).appendTo("#anssub" + i);
+
+           $("<div>").attr(
+           {
+             class: "col-md-10 col-sm-10 col-xs-10",
+             id: "anssubcol" + i
+           }).appendTo("#anssub" + i);
+        }
+
+          for (i = 0; i < 4; i++)
+          {
+
+            $("<input>").attr(
+            {
+              class: "radbut",
+              name: "rdibtn",
+              type: "radio",
+              value: answerArray[i]
+            }).appendTo("#butcol" + i);
+
+            $("<p>").text(answerArray[i]).appendTo("#anssubcol" + i);
+        }
+    $("#answerBtn").appendTo("#answer-col");
+    $("#answerBtn").attr("value", "Answer");
+    $("img").remove();
+    question.image.appendTo("#heading");
+   }
 });
-
-function realQuestions()
-{
-
-}

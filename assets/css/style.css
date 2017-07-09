@@ -27,6 +27,15 @@ body
 
 img
 {
-  border-color: transparent;
-  border-width: 3px;
+  border: solid transparent 10px;
+}
+
+p
+{
+  text-align: justify;
+}
+
+.jumbotron
+{
+  margin-top: 10px;
 }
