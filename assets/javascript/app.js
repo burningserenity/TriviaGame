@@ -19,7 +19,7 @@ var gameQuestions =
     a2: "20 meters per second, or 45 miles per hour, beating its wings 7-9 times per second.",
     a3: "11 meters per second, or 24 miles per hour, beating its wings 2-4 times per second.",
     a4: "African or European?",
-    correct1: "11 meters per second, or 24 miles per hour, beating its wings 7-9 times per second.",
+    correct: "11 meters per second, or 24 miles per hour, beating its wings 7-9 times per second.",
     correct2: "African or European?",
     image: $("<img>").attr(
     {
@@ -33,11 +33,11 @@ var gameQuestions =
   knightsOfNi =
   {
     q: "We are no longer the Knights Who Say Ni, we are now the Knights Who Say ___________.",
-    a1: "Ekke Ekke Ekke Ekke Ptang Zoo Boing!",
+    a1: "Ekke Ekke Ekke Ekke Ptang Zoom Boing!",
     a2: "Okki Okki Okki Okki Ptang Quiong!",
     a3: "It!",
     a4: "Ekke Ekke Ekke Ekke Garang Moyun!",
-    correct: "Ekke Ekke Ekke Ekke Ptang Zoo Boing!",
+    correct: "Ekke Ekke Ekke Ekke Ptang Zoom Boing!",
     image: $("<img>").attr(
     {
       src: "assets/images/knightsofni.jpeg",
@@ -346,7 +346,8 @@ $(function()
 
       var question = gameQuestions[Math.floor(Math.random() * gameQuestions.length)];
       $(".question").text(question.q);
-      gameQuestions = gameQuestions.splice(question, 1);
+      var pos = gameQuestions.indexOf(question);
+      var remove = gameQuestions.splice(pos, 1);
       var answerArray = [question.a1, question.a2, question.a3, question.a4];
       question.image.css(
       {
@@ -362,14 +363,14 @@ $(function()
           class: "jumbotron"
         }).appendTo(".form-group");
 
-        for (i = 0; i < 4; i++)
+        for (i = 0; i < answerArray.length; i++)
           $("<div>").attr(
           {
             class: "row anssubrow",
             id: "anssub" + i
           }).appendTo(".jumbotron");
 
-        for (i = 0; i < 4; i++)
+        for (i = 0; i < answerArray.length; i++)
         {
            $("<div>").attr(
            {
@@ -384,7 +385,7 @@ $(function()
            }).appendTo("#anssub" + i);
         }
 
-          for (i = 0; i < 4; i++)
+          for (i = 0; i < answerArray.length; i++)
           {
 
             $("<input>").attr(
@@ -413,16 +414,41 @@ $(function()
         class: "progress-bar",
         style: "width: 100%",
       }).appendTo(".active");
-      timer();
+      timer(question, answerArray);
    }
 
-   function timer()
+   function timer(question, answerArray)
    {
       $(".progress-bar").animate(
       {
         width: "0%"
       }, 5000);
 
-      setTimeout(function(){wrong();}, 5000);
+      setTimeout(function(){wrong(question, answerArray);}, 5000);
+   }
+
+   function wrong(question, answerArray)
+   {
+     $(".question").text("The correct answer is:");
+     for (i = 0; i < answerArray.length; i++)
+     {
+       if ($("#anssub" + i).find(".radbut").attr('value') === question.correct)
+       {
+         $("#anssub" + i).css('background-color', 'lightgreen');
+         var anssubsel = $("#anssub" + i);
+         break;
+        }
+     }
+
+     setTimeout(function()
+     {
+       anssubsel.css('background-color', '#eeeeee');
+       $(".form-group").detach();
+       $(".active").detach();
+       realQuestions();
+     }, 2000);
+
+
+
    }
 });
