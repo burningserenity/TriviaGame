@@ -6,8 +6,15 @@ var player =
    favColor: ''
 }
 
+//Global variables for functions
+
 var timeLimit;
-var wrongtime;
+var answertime;
+var started = 0;
+var question;
+var answerArray;
+var rightAnswers = 0;
+var endofGame = 0;
 
 //Question object array
 
@@ -157,7 +164,7 @@ var gameQuestions =
     a2: "William Shakespeare",
     a3: "19th Century English footballer Joseph Bannerly",
     a4: "Proto-Medieval philosopher St. Augustine",
-    correct: "19th Century English cricketer W.G Grace",
+    correct: "19th Century English cricketer W.G. Grace",
     image: $("<img>").attr(
     {
       src: "assets/images/God.jpg",
@@ -184,6 +191,8 @@ var gameQuestions =
     })
   },
 ];
+
+var totalQuestions = gameQuestions.length;
 
 var imgBorderColor;
 
@@ -300,8 +309,9 @@ $(function()
         class: "col-md-2 padcol"
       }).appendTo("#answerrow");
 
-  //Ask initial questions
+  //Submit button click events
 
+  //Get value of player.name
   $(".btn-primary").click(function()
   {
     if ($(".question").text() === 'What is your name?' && $(".form-control").prop('value').length > 0)
@@ -316,14 +326,47 @@ $(function()
       });
     }
 
+    //Start game
     else if ($(".question").text() === "From here on out, the questions will be timed, multiple choice.")
     {
+      started = 1;
       realQuestions();
     }
 
+    //If the game is over, reload
+    else if (endofGame === 1)
+          location.reload(true);
+
+    //Submit answers
+    else if (started === 1)
+    {
+
+      //Determine if submitted answer is right or wrong, executing a different function for each
+      //If it's wrong, highlight the chosen answer
+
+         clearTimeout(timeLimit);
+         $(".progress-bar").stop();
+         var chosen = $("input[type=radio][name=rdibtn]:checked").val();
+         if (chosen === question.correct || chosen === question.correct2)
+           right(chosen);
+         else
+         {
+           for (i = 0; i < answerArray.length; i++)
+           {
+             if ($("#anssub" + i).find(".radbut").attr('value') === chosen)
+             {
+               $("#anssub" + i).css('background-color', 'orangered');
+               break;
+             }
+           }
+           wrong(question, answerArray);
+         }
+      }
+
+    //Get value of player.favColor and start the game
+
     else if  ($(".form-control").attr('name', "favourite_color"))
     {
-      //Does not work
       if ($(".form-control").length > 0 && $(".form-control").prop('value').length > 0)
       {
         player.favColor = $(".form-control").prop('value');
@@ -337,19 +380,71 @@ $(function()
         $(".btn-primary").attr("value", "Go!");
       }
     }
-
-
-
   });
 
   //Once Pre-Questions are done, start the real game
   function realQuestions()
   {
-      var question = gameQuestions[Math.floor(Math.random() * gameQuestions.length)];
+
+    //Check to make sure there are still questions left to be asked
+
+    if (gameQuestions.length === 0)
+    {
+      $(".question").text("Game Over!");
+      question.image.css(
+      {
+        'border-color': imgBorderColor
+      });
+      $("<form>").attr(
+      {
+        class: "form-group"
+      }).appendTo("#answer-col");
+
+        $("<div>").attr(
+        {
+          class: "jumbotron"
+        }).appendTo(".form-group");
+
+          $("<div>").attr(
+          {
+            class: "row anssubrow",
+            id: "ending"
+          }).appendTo(".jumbotron");
+
+            $("<div>").attr(
+            {
+              class: "col-md-12 col-sm-12 col-xs-12",
+              id: "endcol"
+            }).appendTo(".anssubrow");
+
+              $("img").remove();
+
+              $("<img>").attr(
+              {
+                alt: "The Rabbit",
+                src: "assets/images/Rabbit.jpg",
+                width: "300",
+                height: "300",
+                id: "imgIcon",
+              }).css('border-color', player.favColor).appendTo("#heading");
+
+              $("<h3>").text("You got " + rightAnswers + " answers correct out of " + totalQuestions + " questions.").appendTo("#endcol");
+
+                $("#answerBtn").appendTo("#endcol");
+
+                  $("#answerBtn").attr("value", "Reset");
+
+      endofGame = 1;
+    }
+
+      //Randomly select a question to be answered and remove it from the array
+      //Set the timer and fill out the divs
+
+      question = gameQuestions[Math.floor(Math.random() * gameQuestions.length)];
       $(".question").text(question.q);
       var pos = gameQuestions.indexOf(question);
       var remove = gameQuestions.splice(pos, 1);
-      var answerArray = [question.a1, question.a2, question.a3, question.a4];
+      answerArray = [question.a1, question.a2, question.a3, question.a4];
       question.image.css(
       {
         'border-color': imgBorderColor
@@ -399,8 +494,6 @@ $(function()
 
             $("<p>").text(answerArray[i]).appendTo("#anssubcol" + i);
         }
-    $("#answerBtn").removeClass("btn-primary");
-    $("#answerBtn").addClass("btn-info");
     $("#answerBtn").appendTo("#answer-col");
     $("#answerBtn").attr("value", "Answer");
     $("img").remove();
@@ -416,8 +509,6 @@ $(function()
         style: "width: 100%",
       }).appendTo(".active");
       timer(question, answerArray);
-
-
    }
 
    function timer(question, answerArray)
@@ -427,44 +518,65 @@ $(function()
         width: "0%"
       }, 5000);
 
-      timeLimit = setTimeout(function(){wrong(question, answerArray);}, 5000);
-      $(".btn-info").on("click", function()
+      timeLimit = setTimeout(function()
       {
-         clearTimeout(timeLimit);
-         var chosen = $("input[type=radio][name=rdibtn]:checked").val();
-         if (chosen === question.correct || chosen === question.correct2)
-           right();
-         else
-         {
-           for (i = 0; i < answerArray.length; i++)
-           {
-             if ($("#anssub" + i).find(".radbut").attr('value') === chosen)
-             {
-               $("#anssub" + i).css('background-color', 'orangered');
-               break;
-             }
-           }
-           wrong(question, answerArray);
-         }
-      });
+        wrong(question, answerArray);
+      }, 5000);
+
    }
 
+  function right(chosen)
+  {
 
+    //Increment the number of questions answered correctly and highlight the correctly chosen answer
+
+    rightAnswers++;
+
+    for (i = 0; i < answerArray.length; i++)
+    {
+
+       if ($("#anssub" + i).find(".radbut").attr('value') === chosen && chosen === question.correct2)
+       {
+         $("#anssub" + i).css('background-color', 'lightgreen');
+         $(".question").text("That is also acceptable.");
+         break;
+       }
+
+       else if ($("#anssub" + i).find(".radbut").attr('value') === chosen && chosen === question.correct)
+       {
+          $("#anssub" + i).css('background-color', 'lightgreen');
+          $(".question").text("Correct!");
+          break;
+       }
+
+
+    }
+
+      answertime = setTimeout(function()
+      {
+         $(".form-group").detach();
+         $(".active").detach();
+         realQuestions();
+      }, 2000);
+
+  }
 
    function wrong(question, answerArray)
    {
-     $(".question").text("The correct answer is:");
+
+    //Highlight the missed answer and move on
+
+     $(".question").text("Too bad! The correct answer is:");
      for (i = 0; i < answerArray.length; i++)
      {
        if ($("#anssub" + i).find(".radbut").attr('value') === question.correct)
        {
          $("#anssub" + i).css('background-color', 'lightgreen');
-         var anssubsel = $("#anssub" + i);
          break;
         }
      }
 
-     wrongtime = setTimeout(function()
+     answertime = setTimeout(function()
      {
        $(".form-group").detach();
        $(".active").detach();
