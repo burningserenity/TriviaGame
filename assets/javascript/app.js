@@ -516,12 +516,12 @@ $(function()
       $(".progress-bar").animate(
       {
         width: "0%"
-      }, 5000);
+      }, 20000);
 
       timeLimit = setTimeout(function()
       {
         wrong(question, answerArray);
-      }, 5000);
+      }, 20000);
 
    }
 
@@ -557,7 +557,7 @@ $(function()
          $(".form-group").detach();
          $(".active").detach();
          realQuestions();
-      }, 2000);
+      }, 5000);
 
   }
 
@@ -581,6 +581,6 @@ $(function()
        $(".form-group").detach();
        $(".active").detach();
        realQuestions();
-     }, 2000);
+     }, 5000);
    }
 });
