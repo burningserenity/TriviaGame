@@ -6,6 +6,8 @@ var player =
    favColor: ''
 }
 
+var timeit;
+
 //Question object array
 
 var gameQuestions =
@@ -157,7 +159,7 @@ var gameQuestions =
     correct: "19th Century English cricketer W.G Grace",
     image: $("<img>").attr(
     {
-      src: "assets/images/God.jpeg",
+      src: "assets/images/God.jpg",
       alt: "God",
       width: "300",
       height: "300"
@@ -167,7 +169,7 @@ var gameQuestions =
   witchesBurn =
   {
     q: "Why do witches burn?",
-    a1: "They human, and human flesh is flammable",
+    a1: "They are human, and human flesh is flammable",
     a2: "They sweat kerosene",
     a3: "They're made of wood",
     a4: "Magic is a fire accelerant",
@@ -395,9 +397,32 @@ $(function()
 
             $("<p>").text(answerArray[i]).appendTo("#anssubcol" + i);
         }
+    $("#answerBtn").removeClass("btn-primary");
+    $("#answerBtn").addClass("btn-info");
     $("#answerBtn").appendTo("#answer-col");
     $("#answerBtn").attr("value", "Answer");
     $("img").remove();
     question.image.appendTo("#heading");
+    $("<div>").attr(
+    {
+      class: "progress progress-striped active"
+    }).appendTo("#timecol");
+
+      $("<div>").attr(
+      {
+        class: "progress-bar",
+        style: "width: 100%",
+      }).appendTo(".active");
+      timer();
+   }
+
+   function timer()
+   {
+      $(".progress-bar").animate(
+      {
+        width: "0%"
+      }, 5000);
+
+      setTimeout(function(){wrong();}, 5000);
    }
 });
