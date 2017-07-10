@@ -6,7 +6,8 @@ var player =
    favColor: ''
 }
 
-var timeit;
+var timeLimit;
+var wrongtime;
 
 //Question object array
 
@@ -338,12 +339,12 @@ $(function()
     }
 
 
-    //Once Pre-Questions are done, start the real game
 
   });
+
+  //Once Pre-Questions are done, start the real game
   function realQuestions()
   {
-
       var question = gameQuestions[Math.floor(Math.random() * gameQuestions.length)];
       $(".question").text(question.q);
       var pos = gameQuestions.indexOf(question);
@@ -415,6 +416,8 @@ $(function()
         style: "width: 100%",
       }).appendTo(".active");
       timer(question, answerArray);
+
+
    }
 
    function timer(question, answerArray)
@@ -424,8 +427,29 @@ $(function()
         width: "0%"
       }, 5000);
 
-      setTimeout(function(){wrong(question, answerArray);}, 5000);
+      timeLimit = setTimeout(function(){wrong(question, answerArray);}, 5000);
+      $(".btn-info").on("click", function()
+      {
+         clearTimeout(timeLimit);
+         var chosen = $("input[type=radio][name=rdibtn]:checked").val();
+         if (chosen === question.correct || chosen === question.correct2)
+           right();
+         else
+         {
+           for (i = 0; i < answerArray.length; i++)
+           {
+             if ($("#anssub" + i).find(".radbut").attr('value') === chosen)
+             {
+               $("#anssub" + i).css('background-color', 'orangered');
+               break;
+             }
+           }
+           wrong(question, answerArray);
+         }
+      });
    }
+
+
 
    function wrong(question, answerArray)
    {
@@ -440,15 +464,11 @@ $(function()
         }
      }
 
-     setTimeout(function()
+     wrongtime = setTimeout(function()
      {
-       anssubsel.css('background-color', '#eeeeee');
        $(".form-group").detach();
        $(".active").detach();
        realQuestions();
      }, 2000);
-
-
-
    }
 });
