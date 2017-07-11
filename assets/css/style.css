@@ -78,6 +78,12 @@ p
     text-align: left;
   }
 
+  img
+  {
+    position: relative;
+    right: 30px;
+  }
+
   .form-control
   {
     width: 40%;
@@ -95,8 +101,23 @@ p
 
   img
   {
-    position: relative;
     right: 40px;
+  }
+
+  h3
+  {
+    padding-bottom: 18px;
+  }
+
+  .container-fluid
+  {
+    margin-left: 30px;
+  }
+
+  .jumbotron
+  {
+    margin-left: -16px;
+    margin-right: -40px;
   }
 
   .btn-primary
@@ -111,4 +132,5 @@ p
     margin-left: 24%;
     margin-bottom: 30px;
   }
+
 }

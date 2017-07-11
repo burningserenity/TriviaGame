@@ -325,6 +325,8 @@ $(function()
         name: "favourite_color",
         placeholder: "Blue"
       });
+      //TODO: Ensure user types only valid HTML colors, else direct them to a link with a list of such colors
+      //also, strip spaces between words, i.e. change 'sky blue' to 'skyblue'
     }
 
     //Start game
@@ -561,7 +563,7 @@ $(function()
          $(".form-group").detach();
          $(".active").detach();
          realQuestions();
-      }, 5000);
+      }, 2000);
 
   }
 
@@ -585,6 +587,6 @@ $(function()
        $(".form-group").detach();
        $(".active").detach();
        realQuestions();
-     }, 5000);
+     }, 2000);
    }
 });
