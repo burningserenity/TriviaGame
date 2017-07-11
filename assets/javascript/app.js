@@ -310,6 +310,7 @@ $(function()
       }).appendTo("#answerrow");
 
   //Submit button click events
+  //TODO: Make pressing the Enter button work the same as clicking the submit button
 
   //Get value of player.name
   $(".btn-primary").click(function()
@@ -346,6 +347,9 @@ $(function()
 
          clearTimeout(timeLimit);
          $(".progress-bar").stop();
+         //TODO determine if user is on a desktop and allow the entire row to be clicked instead of just the radio button
+         //else, allow the user to touch near the radio button for mobile
+
          var chosen = $("input[type=radio][name=rdibtn]:checked").val();
          if (chosen === question.correct || chosen === question.correct2)
            right(chosen);
@@ -428,7 +432,7 @@ $(function()
                 id: "imgIcon",
               }).css('border-color', player.favColor).appendTo("#heading");
 
-              $("<h3>").text("You got " + rightAnswers + " " + totalQuestions + " correct.").appendTo("#endcol");
+              $("<h3>").text("You got " + rightAnswers + " out of " + totalQuestions + " correct.").appendTo("#endcol");
 
                 $("#answerBtn").appendTo("#endcol");
 
