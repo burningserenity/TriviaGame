@@ -51,3 +51,29 @@ p
   -webkit-transition: none;
   transition: none;
 }
+
+@media screen and (max-width: 980px)
+{
+  body
+  {
+    background-image: url('../images/background-md.png');
+  }
+}
+
+@media screen and (max-width: 675px)
+{
+  body
+  {
+    background-image: url('../images/background-sm.png');
+  }
+
+  h1
+  {
+    color: lightgoldenrodyellow;
+  }
+
+  p
+  {
+    font-size: 8px;
+  }
+}

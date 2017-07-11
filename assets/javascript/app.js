@@ -428,7 +428,7 @@ $(function()
                 id: "imgIcon",
               }).css('border-color', player.favColor).appendTo("#heading");
 
-              $("<h3>").text("You got " + rightAnswers + " answers correct out of " + totalQuestions + " questions.").appendTo("#endcol");
+              $("<h3>").text("You got " + rightAnswers + " " + totalQuestions + " correct.").appendTo("#endcol");
 
                 $("#answerBtn").appendTo("#endcol");
 
