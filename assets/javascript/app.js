@@ -312,8 +312,10 @@ $(function()
   //Submit button click events
   //TODO: Make pressing the Enter button work the same as clicking the submit button
 
+
+
   //Get value of player.name
-  $(".btn-primary").click(function()
+  $(".btn-primary").on('click', function()
   {
     if ($(".question").text() === 'What is your name?' && $(".form-control").prop('value').length > 0)
     {
@@ -388,6 +390,7 @@ $(function()
     }
   });
 
+
   //Once Pre-Questions are done, start the real game
   function realQuestions()
   {
@@ -445,7 +448,12 @@ $(function()
 
       //Randomly select a question to be answered and remove it from the array
       //Set the timer and fill out the divs
-
+      $(".btn-primary").off('click');
+$("p").on('click', function()
+  {
+    console.log("click");
+    $(this).find(".radbut").prop('checked', true);
+  });
       question = gameQuestions[Math.floor(Math.random() * gameQuestions.length)];
       $(".question").text(question.q);
       var pos = gameQuestions.indexOf(question);
